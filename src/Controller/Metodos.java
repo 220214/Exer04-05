@@ -9,9 +9,11 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 
-import javax.swing.JOptionPane;
 
-public class Metodos implements Icontroller {
+
+
+
+public  class Metodos implements Icontroller {
 
 	public Metodos() {
 
@@ -59,17 +61,19 @@ public class Metodos implements Icontroller {
 		}
 		private String geraTXt() {
 			StringBuffer buffer = new StringBuffer();
+			
 			String linha = "";
-			while (!linha.equalsIgnoreCase("fim")) {
-				linha = JOptionPane.showInputDialog(null,"Digite uma Frase","ENTRADA de texto", JOptionPane.INFORMATION_MESSAGE);
-					if (!linha.equalsIgnoreCase("fim")) {
+			while (!linha.equalsIgnoreCase("")) {
+				linha = "linha1";
+					if (!linha.equalsIgnoreCase(" ")) {
 					buffer.append(linha+"\r\n");
 				}
 			}
 			return buffer.toString();
 		}
 			//Buscar dados
-		@Override
+		
+			@Override
 		public void readFile(String path, String arquivo) throws IOException {
 			File arq = new File(path, arquivo);
 			if (arq.exists() && arq.isFile()) {
@@ -78,22 +82,39 @@ public class Metodos implements Icontroller {
 				BufferedReader buffer = new BufferedReader(leitorFluxo);
 				String linha = buffer.readLine();
 				
+				String nome = null;
+				String ano =null;
+				String mes = null;
+				String avg =null;
+				
 				while (linha != null) {
 					String[] vet = linha.split(",");
-					for(int j =0;j<86790;j++) {
-					for( int i=0;i<vet.length;i++) {
-						
-							if(vet[0]==vet[j]) {
-								System.out.println(vet[i]);
-							}
-						}
+					String nome1= vet[0];
+					String ano1 =vet[1];
+					String mes1 = vet[2];
+					String avg1 = vet[3];
+					
+					
+					if(nome==null) {
+						nome=vet[0];
+						 ano=vet[1];
+						 mes = vet[2];
+						 avg =vet[3];
 					}
+					 if( nome==nome1 ||ano==ano1 || mes==mes1 ) {
+						
+							System.out.println("Nome do jogo: "+ nome+ " "  + " \t\t ano: "+ ano1
+						+ "\t\t mes "+ mes1 + "\t\t Avg: "+ avg1 );
+						linha = buffer.readLine();
+						
+						
+					}else {
+						nome = null;
 					
-					
-					//System.out.println("\t\t\n" +vetLinha[0] + " \t\t\t " +  vetLinha[1] + " \t\t" + vetLinha[2] + " \t\t" + vetLinha[3]
-						//	+ "   \t\t" + vetLinha[4]+ "\t\t" + vetLinha[5] + "\t\t" + vetLinha[6]);
-					//linha = buffer.readLine();
+					}
 				}
+										
+				
 				buffer.close();
 				leitorFluxo.close();
 				abreFluxoArq.close();
@@ -103,6 +124,8 @@ public class Metodos implements Icontroller {
 		}
 			
 		
+		
+	
 		@Override
 		public void openFile(String path, String arquivo) throws IOException {
 			
@@ -115,6 +138,6 @@ public class Metodos implements Icontroller {
 				}
 			
 		}
-
+		
 
 }
